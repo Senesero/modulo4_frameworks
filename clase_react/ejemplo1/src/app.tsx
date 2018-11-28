@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { HelloComponent } from './hello';
-
 import { NameEditComponent } from './nameEdit';
+import { ColorPicker } from './colorpicker'
+import { Color } from './model/color';
+import { ColorDisplayer } from './colordisplayer';
 
 interface Props {
 
@@ -10,11 +12,20 @@ interface Props {
 interface State {
     username: string;
     editingUsername: string;
+    color: Color;
 }
 
 export class App extends React.Component<Props, State> {
 
-    state = { username: 'defaultUsername', editingUsername: 'defaultUsername' };
+    state = {
+        username: 'defaultUsername',
+        editingUsername: 'defaultUsername',
+        color: { red: 90, green: 50, blue: 70 },
+    };
+
+    setColorState = (color: Color) => {
+        this.setState({ color });
+    }
 
     constructor(props: Props) {
         super(props);
@@ -36,6 +47,18 @@ export class App extends React.Component<Props, State> {
     render() {
         return (
             <>
+                <ColorDisplayer color={this.state.color} />
+                <span>
+                    Color: [
+                        red: {this.state.color.red},
+                        green: {this.state.color.green},
+                        blue: {this.state.color.blue}
+                    ]
+                </span>
+                <br />
+                <ColorPicker
+                    color={this.state.color}
+                    onColorUpdated={this.setColorState} />
                 <HelloComponent username={this.state.username} />
                 <NameEditComponent
                     editingUsername={this.state.editingUsername}
