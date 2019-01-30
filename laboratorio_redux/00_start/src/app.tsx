@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MembersAreaContainer, HelloWorldContainer, NameOrganizationContainer } from './components/index';
+import { MembersAreaContainer, HelloWorldContainer, NameOrganizationContainer } from './components';
 
 export const App = () => {
   return (
@@ -7,7 +7,7 @@ export const App = () => {
       <HelloWorldContainer />
       <br />
       <NameOrganizationContainer />
-      <MembersAreaContainer />
+      <MembersAreaContainer/>
     </div>
   );
 }
