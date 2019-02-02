@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { MemberComponent } from './member';
 import { State } from '../../reducers'
+import { memberRequest } from '../../actions/memberRequest';
 
 // import { LoginComponent } from './login';
 // import { LoginEntity } from '../../model/login';
@@ -13,12 +14,11 @@ const mapStateToProps = (state: State) => {
     }
 }
 
-const mapDispatchToProps = () => {
-    // return {
-    // updateLoginInfo: (loginInfo: LoginEntity) => dispatch(updateEditingLogin(loginInfo)),
-    // performLogin: (loginInfo: LoginEntity) => dispatch(loginRequestStartedAction(loginInfo))
-    // }
-}
+const mapDispatchToProps = (dispatch) => {
+    return {
+      loadMember: (member) => { return dispatch(memberRequest(member)) },
+    };
+  }
 
 export const MemberContainer = connect(
     mapStateToProps,

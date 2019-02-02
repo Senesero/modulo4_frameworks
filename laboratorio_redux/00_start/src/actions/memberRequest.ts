@@ -2,15 +2,15 @@ import { actionsEnums } from '../common/actionsEnums';
 import { memberAPI } from '../api/member';
 import { MemberEntity } from '../model/member';
 
-export const memberRequestCompleted = (members: MemberEntity[]) => {
+export const memberRequestCompleted = (member: MemberEntity) => {
   return {
-    type: actionsEnums.MEMBER_REQUEST_COMPLETED,
-    payload: members
+    type: actionsEnums.UPDATE_MEMBER,
+    payload: member
   }
 }
 
-export const memberRequest = (organization: string) => (dispatcher) => {
-  const promise = memberAPI.getAllMembers(organization);
+export const memberRequest = (member: string) => (dispatcher) => {
+  const promise = memberAPI.getMember(member);
 
   promise.then(
     (data) => dispatcher(memberRequestCompleted(data))

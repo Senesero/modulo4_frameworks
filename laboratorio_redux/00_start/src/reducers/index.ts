@@ -1,15 +1,15 @@
 import { combineReducers} from 'redux';
-import { memberReducer, memberState } from './memberReducer';
+import { membersReducer, membersState } from './membersReducer';
 import { sessionProfileReducer, sessionState } from './session';
 import { routerReducer } from 'react-router-redux'
 
 export interface State {  
-  memberReducer : memberState;
+  membersReducer : membersState;
   sessionProfileReducer: sessionState;
 };
 
 export const reducers = combineReducers({
-  memberReducer,
+  membersReducer,
   sessionProfileReducer,
   routing: routerReducer
 });
