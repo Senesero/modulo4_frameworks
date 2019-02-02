@@ -1,6 +1,6 @@
 import { actionsEnums } from '../common/actionsEnums';
-import { MemberEntity } from '../model/member';
 import { memberAPI } from '../api/member';
+import { MemberEntity } from '../model/member';
 
 export const memberRequestCompleted = (members: MemberEntity[]) => {
   return {

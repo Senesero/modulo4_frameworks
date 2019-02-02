@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { NameOrganizationComponent } from './nameOrganization';
-import { updateOrganization } from '../../actions/organizationChange';
+import { updateOrganization } from '../../actions/sessionChange';
 import { State } from '../../reducers'
 
 const mapStateToProps = (state: State) => ({
-    organization: state.organizationProfileReducer.organization
+    organization: state.sessionProfileReducer.organization
 });
 
 const mapDispatchToProps = (dispatch) => ({

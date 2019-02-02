@@ -6,6 +6,7 @@ interface Props {
   members: Array<MemberEntity>;
   organization: string;
   loadMembers: (organization: string) => any;
+  clickLink: (newMember: MemberEntity) => void
 }
 
 export const MemberAreaComponent = (props: Props) => {
@@ -17,7 +18,7 @@ export const MemberAreaComponent = (props: Props) => {
         onClick={() => props.loadMembers(props.organization)}
       />
       <br />
-      <MemberTableComponent members={props.members} />
+      <MemberTableComponent clickLink={props.clickLink} members={props.members} />
     </div>
   );
 }

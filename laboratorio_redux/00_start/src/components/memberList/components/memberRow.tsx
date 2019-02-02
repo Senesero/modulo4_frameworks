@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { MemberEntity } from '../../../model/member';
 import { Link } from 'react-router'
+import { updateMember } from '../../../actions/sessionChange';
+import { MemberEntity } from '../../../model/member';
 
 interface Props {
   member: MemberEntity;
+  clickLink: (newMember: MemberEntity) => void
 }
 
 export const MemberRowComponent = (props: Props) => {
+
   return (
     <tr>
       <td>
@@ -19,7 +22,7 @@ export const MemberRowComponent = (props: Props) => {
         <span>{props.member.login}</span>
       </td>
       <td>
-        <Link to="/member">Ver Datos</Link>
+        <Link to="/member" onClick={() => props.clickLink(props.member)}>Ver Datos</Link>
       </td>
     </tr>
   );

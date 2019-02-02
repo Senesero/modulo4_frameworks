@@ -1,23 +1,26 @@
 import { connect } from 'react-redux';
+import { MemberComponent } from './member';
+import { State } from '../../reducers'
+
 // import { LoginComponent } from './login';
 // import { LoginEntity } from '../../model/login';
 // import { updateEditingLogin } from './actions/updateEditingLogin';
 // import { loginRequestStartedAction } from './actions/loginRequestStarted';
 
-/*const mapStateToProps = (state) => {
+const mapStateToProps = (state: State) => {
     return {
-        member: state.sessionReducer.editingLogin
+        member: state.sessionProfileReducer.member
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        updateLoginInfo: (loginInfo: LoginEntity) => dispatch(updateEditingLogin(loginInfo)),
-        performLogin: (loginInfo: LoginEntity) => dispatch(loginRequestStartedAction(loginInfo))
-    }
+const mapDispatchToProps = () => {
+    // return {
+    // updateLoginInfo: (loginInfo: LoginEntity) => dispatch(updateEditingLogin(loginInfo)),
+    // performLogin: (loginInfo: LoginEntity) => dispatch(loginRequestStartedAction(loginInfo))
+    // }
 }
 
-export const LoginContainer = connect(
-    mapStateToProps
-    , mapDispatchToProps
-)(LoginComponent);*/
+export const MemberContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MemberComponent);

@@ -4,14 +4,14 @@ import { State } from '../../reducers'
 import {OrganizationComponent} from './organization';
 
 const mapStateToProps = (state : State) => ({
-    organization: state.organizationProfileReducer.organization
+    organization: state.sessionProfileReducer.organization
 });
 
 const mapDispatchToProps = (dispatch) => ({
 
 });
 
-export const HelloWorldContainer = connect(
+export const OrganizationContainer = connect(
    mapStateToProps,
    mapDispatchToProps
 )(OrganizationComponent);

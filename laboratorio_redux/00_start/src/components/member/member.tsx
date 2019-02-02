@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router'
+import { MemberEntity } from '../../model/member';
 /*import { Link } from 'react-router-dom';
 import { SessionContext } from '../common/sessionContext';
 import { Button } from '@material-ui/core';
+import { MemberEntity } from '../../model/member';
 
 export const Member = () =>
   <div>
@@ -24,8 +26,25 @@ export const Member = () =>
     </SessionContext.Consumer>
   </div>*/
 
-export const Member = () =>
+interface Props {
+  member: MemberEntity;
+}
+
+export const MemberComponent = (props: Props) => {
+
+  return (
+    <div>
+      <label>Update Name: {props.member.login}</label>
+    </div>
+  );
+}
+
+/*interface Props {
+  member: MemberEntity;
+}
+
+export const Member = (props: Props) =>
   <>
     <Link to="/">Volver</Link>
-    <div>Miembroooooooooooooooooo</div>
-  </>
+    <div>Miembro: {this.props.member.name}</div>
+  </>*/

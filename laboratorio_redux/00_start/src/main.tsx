@@ -5,9 +5,9 @@ import reduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { reducers } from './reducers';
 import { App } from './app';
-import { Member } from './components/member/member';
 import { Router, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
+import { MemberContainer } from './components';
 
 // const nonTypedWindow : any = window;
 
@@ -32,7 +32,7 @@ ReactDOM.render(
           {/* <Route path="student-list" component={StudentListContainer} />
           <Route path="student-detail" component={StudentDetailContainer} /> */}
         </Route>
-        <Route path="member" component={Member} />
+        <Route path="member" component={MemberContainer} />
       </Router>
     </div>
   </Provider>,

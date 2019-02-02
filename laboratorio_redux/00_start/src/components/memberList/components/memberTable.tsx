@@ -4,6 +4,7 @@ import { MemberRowComponent } from './memberRow';
 
 interface Props {
   members: MemberEntity[];
+  clickLink: (newMember: MemberEntity) => void
 }
 
 export const MemberTableComponent = (props: Props) => {
@@ -30,7 +31,7 @@ export const MemberTableComponent = (props: Props) => {
         <tbody>
           {
             props.members.map((member: MemberEntity) =>
-              <MemberRowComponent key={member.id} member={member} />
+              <MemberRowComponent clickLink={props.clickLink} key={member.id} member={member} />
             )
           }
         </tbody>
