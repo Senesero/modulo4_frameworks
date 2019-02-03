@@ -83,11 +83,6 @@ export class MemberAreaComponent extends React.Component<Props, State> {
 
     return (
       <>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => this.cargarMiembros(1, perPage)}
-          disabled={!organization}>Cargar</Button>
         {organizationMembers}
       </>
     );
