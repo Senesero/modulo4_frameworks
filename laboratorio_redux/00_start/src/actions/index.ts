@@ -1,2 +1,2 @@
 import { membersRequest, membersRequestCompleted } from './membersRequest';
-import { updateOrganization, updateMember } from './sessionChange';
+import { updateOrganization, updateMember, updateCurrentPage, updatePerPage } from './sessionChange';

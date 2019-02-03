@@ -11,4 +11,20 @@ export const updateMember = (newMember: MemberEntity) => ({
   payload: newMember,
 })
 
+export const updateTotalElements = (totalPage: number) => ({
+  type: actionsEnums.UPDATE_TOTAL_ELEMENTS,
+  payload: totalPage,
+})
+
+export const updateCurrentPage = (newCurrentPage: number) => ({
+  type: actionsEnums.UPDATE_CURRENT_PAGE,
+  payload: newCurrentPage,
+})
+
+
+export const updatePerPage = (newPerPage: number) => ({
+  type: actionsEnums.UPDATE_PERPAGE,
+  payload: newPerPage,
+})
+
 

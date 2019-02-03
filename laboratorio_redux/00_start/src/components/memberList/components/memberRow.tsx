@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router'
-import { updateMember } from '../../../actions/sessionChange';
 import { MemberEntity } from '../../../model/member';
 
 interface Props {

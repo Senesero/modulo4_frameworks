@@ -7,20 +7,6 @@ interface Props {
   loadMember: (member: string) => any;
 }
 
-/*export const MemberComponent = (props: Props) => {
-  console.log(props.member);
-  
-  props.loadMember(props.member.login)
-
-  console.log(props.member);
-
-  return (
-    <div>
-      <label>Update Name: {props.member.login}</label>
-    </div>
-  );
-}*/
-
 export class MemberComponent extends React.Component<Props> {
 
   componentDidMount() {

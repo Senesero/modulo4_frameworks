@@ -3,7 +3,16 @@ import { MemberEntity, createDefaultMemberEntity } from '../model/member';
 class MemberAPI {
 
   // Just return a copy of the mock data
-  getAllMembers(organizationName: string): Promise<MemberEntity[]> {
+  getAllMembers(organizationName: string, currentPage: number, perPage: number): Promise<MemberEntity[]> {
+    const gitHubMembersUrl: string = `https://api.github.com/orgs/${organizationName}/members?page=${currentPage}&per_page=${perPage}`;
+
+    return fetch(gitHubMembersUrl)
+      .then((response) => this.checkStatus(response))
+      .then((response) => this.parseJSON(response))
+      .then((data) => this.resolveMembers(data))
+  }
+
+  getNumMembers(organizationName: string): Promise<MemberEntity[]> {
     const gitHubMembersUrl: string = `https://api.github.com/orgs/${organizationName}/members`;
 
     return fetch(gitHubMembersUrl)
