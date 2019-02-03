@@ -1,28 +1,29 @@
 import * as React from 'react';
-import { Link } from 'react-router'
+
+import { withStyles } from '@material-ui/core/styles';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import { MemberEntity } from '../../../model/member';
+import { Link } from 'react-router'
+
 
 interface Props {
-  member: MemberEntity;
-  clickLink: (newMember: MemberEntity) => void
+  member: MemberEntity,
+  updateMember: (newMember: MemberEntity) => void
 }
 
-export const MemberRowComponent = (props: Props) => {
+const BodyCell = withStyles(theme => ({
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
-  return (
-    <tr>
-      <td>
-        <img src={props.member.avatar_url} className="avatar" style={{ maxWidth: '200px' }} />
-      </td>
-      <td>
-        <span>{props.member.id}</span>
-      </td>
-      <td>
-        <span>{props.member.login}</span>
-      </td>
-      <td>
-        <Link to="/member" onClick={() => props.clickLink(props.member)}>Ver Datos</Link>
-      </td>
-    </tr>
-  );
-}
+export const MemberRow = (props: Props) =>
+  <TableRow key={props.member.id} onClick={() => props.updateMember(props.member)}>
+    <BodyCell>
+      <img src={props.member.avatar_url} style={{ maxWidth: '10rem' }} />
+    </BodyCell>
+    <BodyCell><span>{props.member.id}</span></BodyCell>
+    <BodyCell><span>{props.member.login}</span></BodyCell>
+    <BodyCell><Link to="/member" onClick={() => props.updateMember(props.member)}>Ver Datos</Link></BodyCell>
+  </TableRow>

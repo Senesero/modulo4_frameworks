@@ -1,41 +1,29 @@
 import * as React from 'react';
 import { MemberEntity } from '../../../model/member';
-import { MemberRowComponent } from './memberRow';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+
+import { MemberHead } from './memberHead';
+import { MemberRow } from './memberRow';
+
 
 interface Props {
   members: MemberEntity[];
-  clickLink: (newMember: MemberEntity) => void
+  updateMember: (newMember: MemberEntity) => void
 }
 
 export const MemberTableComponent = (props: Props) => {
   return (
-    <div className="row">
-      <h2> Members Page</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>
-              Avatar
-              </th>
-            <th>
-              Id
-              </th>
-            <th>
-              Name
-              </th>
-            <th>
-              Datos
-              </th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            props.members.map((member: MemberEntity) =>
-              <MemberRowComponent clickLink={props.clickLink} key={member.id} member={member} />
-            )
-          }
-        </tbody>
-      </table>
-    </div>
+    <Paper>
+      <Table>
+        <MemberHead />
+        <TableBody>
+          {props.members.map((member: MemberEntity) => (
+            <MemberRow key={member.id} member={member} updateMember={props.updateMember} />
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
   );
 }

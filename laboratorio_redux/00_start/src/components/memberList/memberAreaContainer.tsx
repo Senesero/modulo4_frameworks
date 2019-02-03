@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { membersRequest } from '../../actions/membersRequest';
 import { MemberAreaComponent } from './memberArea';
 import { State } from '../../reducers';
-import { updateMember, updateCurrentPage, updatePerPage } from '../../actions/sessionChange';
+import { updateMember, updateCurrentPage, updatePerPage, updateLastSearch } from '../../actions/sessionChange';
 import { MemberEntity } from '../../model/member';
 
 const mapStateToProps = (state: State) => {
@@ -12,6 +12,7 @@ const mapStateToProps = (state: State) => {
     currentPage: state.sessionProfileReducer.currentPage,
     perPage: state.sessionProfileReducer.perPage,
     totalElements: state.sessionProfileReducer.totalElements,
+    lastSearch: state.sessionProfileReducer.lastSearch,
   };
 }
 
@@ -20,9 +21,10 @@ const mapDispatchToProps = (dispatch) => {
     loadMembers: (organization, currentPage, perPage) => {
       return dispatch(membersRequest(organization, currentPage, perPage))
     },
-    clickLink: (member: MemberEntity) => { return dispatch(updateMember(member)) },
+    updateMember: (member: MemberEntity) => { return dispatch(updateMember(member)) },
     updateCurrent: (currentPage: number) => { return dispatch(updateCurrentPage(currentPage)) },
     updatePerPage: (perPage: number) => { return dispatch(updatePerPage(perPage)) },
+    updateLastSearch: (lastSearch: string) => { return dispatch(updateLastSearch(lastSearch)) },
   };
 }
 

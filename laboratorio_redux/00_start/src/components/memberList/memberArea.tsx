@@ -2,7 +2,8 @@ import * as React from 'react';
 import { MemberTableComponent } from './components/memberTable';
 import { MemberEntity } from '../../model/member'
 import { Pagination } from '../components/pagination';
-import { updateCurrentPage } from '../../actions/sessionChange';
+import { Spinner } from '../components/spinner';
+import Button from "@material-ui/core/Button";
 
 interface Props {
   members: Array<MemberEntity>;
@@ -10,13 +11,27 @@ interface Props {
   currentPage: number;
   perPage: number;
   totalElements: number;
+  lastSearch: string;
   loadMembers: (organization: string, currentPage: number, perPage: number) => any;
-  clickLink: (newMember: MemberEntity) => void
+  updateMember: (newMember: MemberEntity) => void
   updateCurrent: (newCurrentPage: number) => void
-  updatePerPage: (newCurrentPage: number) => void
+  updatePerPage: (newPerPage: number) => void
+  updateLastSearch: (lastSearch: string) => void
 }
 
-export class MemberAreaComponent extends React.Component<Props> {
+interface State {
+  load: boolean
+}
+
+export class MemberAreaComponent extends React.Component<Props, State> {
+
+  state = {
+    load: true,
+  }
+
+  componentDidMount() {
+    this.cargarMiembros(this.props.currentPage, this.props.perPage)
+  }
 
   onPageChange = (currentPage: number) => {
     this.props.updateCurrent(currentPage)
@@ -24,47 +39,56 @@ export class MemberAreaComponent extends React.Component<Props> {
   }
 
   onChangeSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
-
     this.props.updatePerPage(Number(e.target.value));
     this.props.updateCurrent(1)
-    this.cargarMiembros(this.props.currentPage, Number(e.target.value))
+    this.cargarMiembros(1, Number(e.target.value))
   }
 
   cargarMiembros = (currentPage: number, perPage: number) => {
+    this.setState({ load: true })
+    this.props.updateLastSearch(this.props.organization)
     this.props.loadMembers(this.props.organization, currentPage, perPage)
+    this.setState({ load: false })
   }
 
   render() {
-    const { currentPage, perPage, clickLink, members, totalElements } = this.props;
+    const { currentPage, perPage, updateMember, members, totalElements, lastSearch, organization } = this.props;
+    let organizationMembers;
+
+    if (this.state.load) {
+      organizationMembers = <Spinner />
+    } else {
+      if (members.length > 0) {
+        organizationMembers =
+          <>
+            <h2>Members {lastSearch}</h2>
+            <MemberTableComponent updateMember={updateMember} members={members} />
+            <div>
+              <select onChange={(event) => this.onChangeSelected(event)} value={perPage}>
+                <option>3</option>
+                <option>5</option>
+                <option>10</option>
+              </select>
+              <Pagination
+                currentPage={currentPage}
+                perPage={perPage}
+                totalElem={totalElements}
+                onPageChange={this.onPageChange} />
+            </div>
+          </>
+      } else {
+        organizationMembers = <h2>No se pueden encontrar miembros de la organización {lastSearch}</h2>
+      }
+    }
 
     return (
       <>
-        <br />
-        <input type="submit"
-          value="load"
-          className="btn btn-default"
-          onClick={() => this.cargarMiembros(currentPage, perPage)}
-        />
-        <br />
-        <label>currentPage: {currentPage}</label>
-        <br />
-        <label>perPage: {perPage}</label>
-        <br />
-        <label>totalElements: {totalElements}</label>
-
-        <MemberTableComponent clickLink={clickLink} members={members} />
-        <div>
-          <select onChange={(event) => this.onChangeSelected(event)} value={perPage}>
-            <option>3</option>
-            <option>5</option>
-            <option>10</option>
-          </select>
-          <Pagination
-            currentPage={currentPage}
-            perPage={perPage}
-            totalElem={totalElements}
-            onPageChange={this.onPageChange} />
-        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => this.cargarMiembros(1, perPage)}
+          disabled={!organization}>Cargar</Button>
+        {organizationMembers}
       </>
     );
   }

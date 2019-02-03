@@ -7,6 +7,7 @@ export interface sessionState {
   currentPage: number;
   perPage: number;
   totalElements: number;
+  lastSearch: string;
 }
 
 const defaultSessionState = (): sessionState => ({
@@ -17,7 +18,8 @@ const defaultSessionState = (): sessionState => ({
   },
   currentPage: 1,
   perPage: 5,
-  totalElements: 0
+  totalElements: 0,
+  lastSearch: 'lemoncode',
 })
 
 export const sessionProfileReducer = (state = defaultSessionState(), action): sessionState => {
@@ -32,6 +34,8 @@ export const sessionProfileReducer = (state = defaultSessionState(), action): se
       return handlePerPageProfileAction(state, action.payload);
     case actionsEnums.UPDATE_TOTAL_ELEMENTS:
       return handleTotalPageProfileAction(state, action.payload);
+    case actionsEnums.UPDATE_LOADING_DATA:
+      return handleLastSearchProfileAction(state, action.payload);
   }
 
   return state;
@@ -60,4 +64,9 @@ const handlePerPageProfileAction = (state: sessionState, perPage: number): sessi
 const handleTotalPageProfileAction = (state: sessionState, totalElements: number): sessionState => ({
   ...state,
   totalElements: totalElements
+})
+
+const handleLastSearchProfileAction = (state: sessionState, lastSearch: string): sessionState => ({
+  ...state,
+  lastSearch: lastSearch
 })

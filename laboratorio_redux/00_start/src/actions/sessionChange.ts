@@ -27,4 +27,11 @@ export const updatePerPage = (newPerPage: number) => ({
   payload: newPerPage,
 })
 
+export const updateLastSearch = (lastSearch: string) => ({
+  type: actionsEnums.UPDATE_LOADING_DATA,
+  payload: lastSearch,
+})
+
+
+
 

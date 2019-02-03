@@ -8,4 +8,5 @@ export const actionsEnums = {
   UPDATE_PERPAGE: '[0] Update the member per page',
   MEMBER_REQUEST: 'MEMBER_REQUEST',
   MEMBER_REQUEST_COMPLETED: 'MEMBER_REQUEST_COMPLETED',
+  UPDATE_LOADING_DATA: '[0] Update loadinf data'
 }
