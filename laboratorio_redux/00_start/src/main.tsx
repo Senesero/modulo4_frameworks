@@ -9,13 +9,8 @@ import { Router, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 import { MemberContainer } from './components';
 
-// const nonTypedWindow : any = window;
-
-// const composeEnhancers = nonTypedWindow.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const store = createStore(
   reducers,
-  /* preloadedState, */
   compose(
     applyMiddleware(reduxThunk),
     window['devToolsExtension'] ? window['devToolsExtension']() : f => f
@@ -29,8 +24,6 @@ ReactDOM.render(
     <div>
       <Router history={history}>
         <Route path="/" component={App}>
-          {/* <Route path="student-list" component={StudentListContainer} />
-          <Route path="student-detail" component={StudentDetailContainer} /> */}
         </Route>
         <Route path="member" component={MemberContainer} />
       </Router>

@@ -19,15 +19,7 @@ interface Props {
   updateLastSearch: (lastSearch: string) => void
 }
 
-interface State {
-  load: boolean
-}
-
-export class MemberAreaComponent extends React.Component<Props, State> {
-
-  state = {
-    load: true,
-  }
+export class MemberAreaComponent extends React.Component<Props> {
 
   componentDidMount() {
     this.cargarMiembros(this.props.currentPage, this.props.perPage)
@@ -45,40 +37,34 @@ export class MemberAreaComponent extends React.Component<Props, State> {
   }
 
   cargarMiembros = (currentPage: number, perPage: number) => {
-    this.setState({ load: true })
     this.props.updateLastSearch(this.props.organization)
     this.props.loadMembers(this.props.organization, currentPage, perPage)
-    this.setState({ load: false })
   }
 
   render() {
     const { currentPage, perPage, updateMember, members, totalElements, lastSearch, organization } = this.props;
     let organizationMembers;
 
-    if (this.state.load) {
-      organizationMembers = <Spinner />
+    if (members.length > 0) {
+      organizationMembers =
+        <>
+          <h2>Members {lastSearch}</h2>
+          <MemberTableComponent updateMember={updateMember} members={members} />
+          <div>
+            <select onChange={(event) => this.onChangeSelected(event)} value={perPage}>
+              <option>3</option>
+              <option>5</option>
+              <option>10</option>
+            </select>
+            <Pagination
+              currentPage={currentPage}
+              perPage={perPage}
+              totalElem={totalElements}
+              onPageChange={this.onPageChange} />
+          </div>
+        </>
     } else {
-      if (members.length > 0) {
-        organizationMembers =
-          <>
-            <h2>Members {lastSearch}</h2>
-            <MemberTableComponent updateMember={updateMember} members={members} />
-            <div>
-              <select onChange={(event) => this.onChangeSelected(event)} value={perPage}>
-                <option>3</option>
-                <option>5</option>
-                <option>10</option>
-              </select>
-              <Pagination
-                currentPage={currentPage}
-                perPage={perPage}
-                totalElem={totalElements}
-                onPageChange={this.onPageChange} />
-            </div>
-          </>
-      } else {
-        organizationMembers = <h2>No se pueden encontrar miembros de la organización {lastSearch}</h2>
-      }
+      organizationMembers = <h2>No se pueden encontrar miembros de la organización {lastSearch}</h2>
     }
 
     return (

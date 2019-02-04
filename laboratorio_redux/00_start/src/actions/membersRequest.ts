@@ -29,11 +29,8 @@ export const membersRequest = (organization: string, currentPage: number, perPag
   promise = memberAPI.getAllMembers(organization, currentPage, perPage);
 
   promise.then(
-    (data) => {
-      console.log(data)
-      dispatcher(membersRequestCompleted(data))
-    }
-  ).catch((error) => { dispatcher(clearMembers()) });
+    (data) => dispatcher(membersRequestCompleted(data))
+  ).catch(() => { dispatcher(clearMembers()) });
 
   return promise;
 }
