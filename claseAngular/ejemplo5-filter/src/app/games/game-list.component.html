@@ -1,0 +1,6 @@
+<div class="container">
+    <div [routerLink]="['/games', game.name]" *ngFor="let game of games">
+        <app-game-summary (onGameChange)="onGameChangeHandler($event)" [game]="game"></app-game-summary>
+    </div>
+    <!-- <app-game-sellers [sellers]="selectedGameSellers" [gameName]="selectedGameName"></app-game-sellers> -->
+</div>

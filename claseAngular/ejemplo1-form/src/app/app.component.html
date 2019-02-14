@@ -1,0 +1,17 @@
+<h1 style="text-align: center">{{title}}</h1>
+<app-create-game (createGameEvent)="onCreateGameEvent($event)"></app-create-game>
+<div class="container">
+    <div class="games-container">
+        <div class="row">
+            <div class="column">
+                <button class="btn btn-primary btn-sm float-right" (click)="show=!show">Toggle games</button>
+            </div>
+        </div>
+        <div *ngIf="show">
+            <div *ngFor="let game of games">
+                <app-game-summary (onGameChange)="onGameChangeHandler($event)" [game]="game"></app-game-summary>
+            </div>
+        </div>
+    </div>
+    <app-game-sellers [sellers]="selectedGameSellers" [gameName]="selectedGameName"></app-game-sellers>
+</div>

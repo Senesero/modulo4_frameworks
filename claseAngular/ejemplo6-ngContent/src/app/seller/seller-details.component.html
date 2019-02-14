@@ -1,0 +1,10 @@
+<app-collapsable-card>
+    <div card-title>
+        <h4>{{seller.name}}</h4>
+    </div>
+    <div card-body>
+        <span>Available amount: {{seller.amount}}</span>
+        <span>Unit price: {{seller.price | currency:'EUR'}}</span>
+        <i [class]="seller.amount | available" aria-hidden="true"></i>
+    </div>
+</app-collapsable-card>
