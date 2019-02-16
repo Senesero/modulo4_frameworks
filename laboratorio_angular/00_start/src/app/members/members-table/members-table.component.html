@@ -1,0 +1,14 @@
+<app-title-page></app-title-page>
+<app-formulario (selectOrganization)="getOrganization($event)" (selectMembers)="getMembers($event)"></app-formulario>
+
+<div *ngIf="members && members.length > 0">
+    <h2>{{organization}}</h2>
+    <table>
+        <thead app-member-head></thead>
+        <tbody>
+            <tr app-member-row [member]="member" *ngFor="let member of members" [routerLink]="['/members', member.login]">
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h3 *ngIf="members && members.length === 0">No se han encontrado miembros de {{organization}}</h3>
