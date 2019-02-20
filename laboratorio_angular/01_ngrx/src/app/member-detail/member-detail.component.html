@@ -1,0 +1,10 @@
+<div>
+    <Button [routerLink]="['/members']">
+      Volver
+    </Button>
+    <h1>{{member?.name}}</h1>
+    <h3>{{member?.company}} ({{member?.location}})</h3>
+    <img src={{member?.avatar_url}} />
+    <h3>bio: {{member?.bio}}</h3>
+    <h3>blog: {{member?.blog}}</h3>
+</div>
