@@ -11,7 +11,7 @@
     </td>
     <td :class="$style.column">
       <v-btn flat icon :to="`/member/${member.login}`">
-        <v-icon>Ver</v-icon>
+        <v-icon>Ver Miembro</v-icon>
       </v-btn>
     </td>
   </tr>

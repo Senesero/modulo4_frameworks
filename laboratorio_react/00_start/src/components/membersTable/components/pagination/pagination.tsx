@@ -18,6 +18,16 @@ const Boton = styled.button`
   text-decoration: none;
   transition: background-color .3s;
   border: 1px solid #ddd;
+  background-color: #c3c3c3;
+`;
+
+const BotonSeleccionado = styled.button`
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  background-color: #7d7d7d;
 `;
 
 const rango = (desde, hasta) => {
@@ -39,15 +49,20 @@ export class Pagination extends React.Component<Props, State> {
   }
 
   calcularBotones = (totalElem, perPage, onPageChange) => {
+    const { currentPage } = this.props
     const numBotones = Math.ceil(totalElem / perPage);
     const botones = rango(1, numBotones);
-    return botones.map((value) => <Boton key={value} onClick={() => onPageChange(value)}>{value}</Boton>)
+    return botones.map((value) => {
+      if(value === currentPage) {
+        return <BotonSeleccionado key={value} onClick={() => onPageChange(value)}>{value}</BotonSeleccionado>
+      } else {
+        return <Boton key={value} onClick={() => onPageChange(value)}>{value}</Boton>
+      }      
+    })
   }
 
-
-
   public render() {
-    const { currentPage, perPage, totalElem, onPageChange } = this.props
+    const { perPage, totalElem, onPageChange } = this.props
 
     return (
       <>

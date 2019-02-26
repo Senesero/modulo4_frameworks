@@ -57,9 +57,10 @@ class MembersTableComponent extends React.Component<Props, State> {
 
   setNumElem = (totalElem) => this.setState({ totalElem });
 
-  onChangeSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  setCurrentPage = (currentPage) => this.setState({ currentPage })
+
+  onChangeSelected = (e: React.ChangeEvent<HTMLSelectElement>) => 
     this.setState({ perPage: Number(e.target.value), currentPage: 1 }, () => this.loadMembers());
-  }
 
   loadMembers = () => {
     const { organization } = this.props
@@ -71,7 +72,7 @@ class MembersTableComponent extends React.Component<Props, State> {
     memberAPI.getAllMembers(organization, currentPage, perPage)
       .then((members) => {
         this.changeLoadingData(false);
-        this.setState({ members: members, currentPage: 1 })
+        this.setState({ members: members })
       }).catch((error) => {
         this.changeLoadingData(false);
         this.clearMembers();
@@ -88,11 +89,14 @@ class MembersTableComponent extends React.Component<Props, State> {
     )
   }
 
-  onPageChange = (currentPage: number) => this.setState({ currentPage }, () => this.loadMembers())
+  onPageChange = (currentPage: number) => {
+    this.setCurrentPage(currentPage)
+    this.loadMembers()
+  }
 
   public render() {
     const { lastSearch, members, loadingData, currentPage, perPage, totalElem } = this.state;
-    const { organization } = this.props
+    const { organization, setOrganization } = this.props
     let organizationMembers;
 
     if (loadingData) {
@@ -133,9 +137,10 @@ class MembersTableComponent extends React.Component<Props, State> {
       <div className="row">
         <h2> Members Page</h2>
         <MembersSearchComponent
-          onClick={this.loadMembers}
+          loadMembers={this.loadMembers}
           organization={organization}
-          setOrganization={this.props.setOrganization} />
+          setOrganization={setOrganization}
+          setCurrentPage={this.setCurrentPage} />
 
         {organizationMembers}
       </div>

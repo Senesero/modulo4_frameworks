@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 interface Props {
-    onClick: () => void;
+    loadMembers: () => void;
     organization: string;
     setOrganization: (newOrganization: string) => void;
+    setCurrentPage: (currentPage: number) => void;
 }
 
 const onChange = (props: Props) => (e: React.ChangeEvent<HTMLInputElement>) => {
     props.setOrganization(e.target.value);
+}
+
+const onClick = (props: Props) => {
+    props.setCurrentPage(1);
+    props.loadMembers();
 }
 
 export const MembersSearchComponent = (props: Props) =>
@@ -25,7 +30,7 @@ export const MembersSearchComponent = (props: Props) =>
         <Button
             variant="contained"
             color="primary"
-            onClick={props.onClick}
+            onClick={() => onClick(props)}
             disabled={!props.organization}>Cargar</Button>
 
     </>
